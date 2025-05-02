@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spritzer buchen</title>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f4f4f4; }
+    .hidden { display: none; }
+    .team-button { margin: 0.5rem; padding: 1rem; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; }
+    .team-button.selected { background: #0056b3; }
+    .form-group { margin-top: 1rem; }
+    input { padding: 0.5rem; width: 120px; }
+    .link { margin-top: 2rem; display: block; }
+  </style>
+</head>
+<body>
+  <h1>Spritzer buchen</h1>
+
+  <div id="login-section">
+    <h3>Login</h3>
+    <input type="text" id="username" placeholder="Benutzername" /><br><br>
+    <input type="password" id="password" placeholder="Passwort" /><br><br>
+    <button id="login-btn">Login</button>
+  </div>
+
+  <div id="booking-section" class="hidden">
+    <p>Willkommen, <span id="user-label"></span>!</p>
+    <div id="team-buttons"></div>
+
+    <div class="form-group">
+      <input type="number" id="spritzer-count" placeholder="Anzahl" min="1" />
+      <button id="add-btn">Buchen</button>
+    </div>
+
+    <a href="leaderboard.html" class="link">🔗 Zum Leaderboard</a>
+  </div>
+
+  <script src="script.js">
+   
+  </script>
+</body>
+</html>
