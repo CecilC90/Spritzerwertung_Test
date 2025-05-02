@@ -18,40 +18,78 @@ function renderLeaderboard() {
     const sorted = Object.entries(teams).sort((a, b) => b[1].count - a[1].count);
     const maxCount = Math.max(...Object.values(teams).map(team => team.count || 0));
 
-    container.innerHTML = "";
+    const prevRects = {};
+    Array.from(container.children).forEach(el => {
+      prevRects[el.dataset.id] = el.getBoundingClientRect();
+    });
 
+    const newElements = {};
     sorted.forEach(([id, team]) => {
-      const teamDiv = document.createElement("div");
-      teamDiv.className = "team";
+      let teamDiv = container.querySelector(`[data-id="${id}"]`);
+      const isNew = !teamDiv;
 
-      // Linker Teil (Name + Anzahl)
-      const infoDiv = document.createElement("div");
-      infoDiv.className = "team-info";
+      if (isNew) {
+        teamDiv = document.createElement("div");
+        teamDiv.className = "team";
+        teamDiv.dataset.id = id;
 
-      const nameDiv = document.createElement("div");
-      nameDiv.className = "team-name";
-      nameDiv.textContent = team.name;
+        const infoDiv = document.createElement("div");
+        infoDiv.className = "team-info";
 
-      const countDiv = document.createElement("div");
-      countDiv.className = "team-count";
-      countDiv.textContent = `${team.count || 0} Spritzer`;
+        const nameDiv = document.createElement("div");
+        nameDiv.className = "team-name";
+        infoDiv.appendChild(nameDiv);
 
-      infoDiv.appendChild(nameDiv);
-      infoDiv.appendChild(countDiv);
+        const countDiv = document.createElement("div");
+        countDiv.className = "team-count";
+        infoDiv.appendChild(countDiv);
 
-      // Rechter Teil (Balken)
-      const barContainer = document.createElement("div");
-      barContainer.className = "bar-container";
+        const barContainer = document.createElement("div");
+        barContainer.className = "bar-container";
 
-      const bar = document.createElement("div");
-      bar.className = "bar";
+        const bar = document.createElement("div");
+        bar.className = "bar";
+        barContainer.appendChild(bar);
+
+        teamDiv.appendChild(infoDiv);
+        teamDiv.appendChild(barContainer);
+      }
+
+      teamDiv.querySelector(".team-name").textContent = team.name;
+      teamDiv.querySelector(".team-count").textContent = `${team.count || 0} Spritzer`;
       const width = (team.count / maxCount) * 100;
-      bar.style.width = `${width}%`;
+      teamDiv.querySelector(".bar").style.width = `${width}%`;
 
-      barContainer.appendChild(bar);
-      teamDiv.appendChild(infoDiv);
-      teamDiv.appendChild(barContainer);
-      container.appendChild(teamDiv);
+      newElements[id] = teamDiv;
+    });
+
+    // Neue Reihenfolge setzen
+    const fragment = document.createDocumentFragment();
+    sorted.forEach(([id]) => {
+      fragment.appendChild(newElements[id]);
+    });
+
+    container.innerHTML = "";
+    container.appendChild(fragment);
+
+    // FLIP Animation anwenden
+    requestAnimationFrame(() => {
+      Object.entries(newElements).forEach(([id, el]) => {
+        const old = prevRects[id];
+        if (!old) return;
+        const newRect = el.getBoundingClientRect();
+
+        const dx = old.left - newRect.left;
+        const dy = old.top - newRect.top;
+
+        el.style.transform = `translate(${dx}px, ${dy}px)`;
+        el.style.transition = "none";
+
+        requestAnimationFrame(() => {
+          el.style.transition = "transform 0.5s ease";
+          el.style.transform = "";
+        });
+      });
     });
   });
 }
