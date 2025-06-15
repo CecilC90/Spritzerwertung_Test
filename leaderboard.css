@@ -1,0 +1,99 @@
+:root {
+    --primary: #4CAF50;
+    --background: #f9f9f9;
+    --card: #ffffff;
+    --bar-bg: #e0e0e0;
+    --text: #333;
+    --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--background);
+    padding: 2rem;
+    margin: 0;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  #leaderboard {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .team {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--card);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: transform 0.5s ease;
+    will-change: transform;
+  }
+
+  .team-info {
+    flex: 0 0 140px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .team-name {
+    font-weight: bold;
+    font-size: 1.05rem;
+  }
+
+  .team-count {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  .bar-container {
+    flex-grow: 1;
+    background-color: var(--bar-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    height: 32px; /* dicker Balken */
+  }
+
+  .bar {
+    height: 100%;
+    background-color: var(--primary);
+    transition: width 0.6s ease;
+    text-align: right;
+    padding-right: 10px;
+    color: white;
+    font-size: 0.9rem;
+    line-height: 32px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 480px) {
+    .team {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .team-info {
+      flex: none;
+      margin-bottom: 0.5rem;
+    }
+
+    .bar {
+      font-size: 0.8rem;
+      padding-right: 6px;
+    }
+  }

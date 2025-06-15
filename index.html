@@ -4,125 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Spritzer buchen</title>
-
+  <link rel="stylesheet" href="style.css">
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
-  <style>
-    :root {
-      --primary: #007bff;
-      --primary-dark: #0056b3;
-      --background: #f4f4f4;
-      --white: #fff;
-      --shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--background);
-      margin: 0;
-      padding: 2rem;
-      display: flex;
-      justify-content: center;
-    }
-
-    .container {
-      background: var(--white);
-      padding: 2rem;
-      border-radius: 12px;
-      max-width: 400px;
-      width: 100%;
-      box-shadow: var(--shadow);
-    }
-
-    h1, h3 {
-      text-align: center;
-      color: #333;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    input[type="text"],
-    input[type="password"],
-    input[type="number"] {
-      width: 100%;
-      padding: 0.7rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-
-    button {
-      width: 100%;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 8px;
-      background: var(--primary);
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background: var(--primary-dark);
-    }
-
-    .team-button {
-      padding: 0.6rem 1rem;
-      margin: 0.25rem;
-      background: var(--primary);
-      border: none;
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
-      transition: background 0.2s ease;
-      font-size: 0.95rem;
-    }
-
-    .team-button.selected {
-      background: var(--primary-dark);
-    }
-
-    .form-group {
-      margin-top: 1.5rem;
-    }
-
-    .link {
-      margin-top: 2rem;
-      display: block;
-      text-align: center;
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .link:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 1rem;
-      }
-
-      .container {
-        padding: 1.5rem;
-      }
-
-      button,
-      .team-button {
-        font-size: 0.9rem;
-      }
-    }
-  </style>
+  
 </head>
 <body>
   <div class="container">
@@ -142,9 +28,10 @@
       <div class="form-group">
         <input type="number" id="spritzer-count" placeholder="Anzahl" min="1" />
         <button id="add-btn">Buchen</button>
+        <button id="storno-btn">Storno</button>
       </div>
 
-      <a href="leaderboard.html" class="link">🔗 Zum Leaderboard</a>
+      <a href="leaderboard.html" class="link" target="_blank">🔗 Zum Leaderboard</a>
     </div>
   </div>
 
