@@ -1,5 +1,5 @@
 :root {
-  --primary: #007bff;
+  --primary: #d3dbe2;
   --primary-dark: #0056b3;
   --background: #f4f4f4;
   --white: #fff;
@@ -60,6 +60,20 @@ button {
   cursor: pointer;
   transition: background 0.3s ease;
 }
+
+#add-btn {  
+  background: var(--primary);
+  margin-top: 1rem;
+
+}
+
+#add-btn:hover {
+  background: #028a24;
+}
+
+#storno-btn:hover {
+    background: #ea060e;
+  }
 
 button:hover {
   background: var(--primary-dark);

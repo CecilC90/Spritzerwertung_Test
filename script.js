@@ -65,7 +65,6 @@ document.getElementById("add-btn").addEventListener("click", () => {
   document.getElementById("spritzer-count").value = "";
 });
 
-//spritzer Buchungen stornieren
 // Spritzer Buchungen stornieren
 document.getElementById("storno-btn").addEventListener("click", async () => {
   const inputCount = parseInt(document.getElementById("spritzer-count").value, 10);
