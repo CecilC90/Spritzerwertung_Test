@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Spritzer buchen</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
-  
+
 </head>
+
 <body>
   <div class="container">
     <h1>Spritzer buchen</h1>
@@ -24,17 +26,33 @@
     <div id="booking-section" class="hidden">
       <p>Willkommen, <span id="user-label"></span>!</p>
       <div id="team-buttons"></div>
+      <div class="team-add-wrapper">
+        <button id="open-add-team-toast-btn">Team hinzufügen</button>
+      </div>
 
+      <div id="team-toast" class="toast-overlay hidden">
+        <div class="toast-content">
+          <h3>Team hinzufügen</h3>
+
+          <input id="new-team-name" type="text" placeholder="Teamname eingeben">
+
+          <div class="toast-actions">
+            <button id="save-team-btn">Speichern</button>
+            <button id="cancel-team-btn">Abbrechen</button>
+          </div>
+        </div>
+      </div>
       <div class="form-group">
         <input type="number" id="spritzer-count" placeholder="Anzahl" min="1" />
         <button id="add-btn">Buchen</button>
         <button id="storno-btn">Storno</button>
+        <button id="setValue-btn">Anzahl setzen</button>
+
+        <a href="leaderboard.html" class="link" target="_blank">🔗 Zum Leaderboard</a>
       </div>
-
-      <a href="leaderboard.html" class="link" target="_blank">🔗 Zum Leaderboard</a>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
