@@ -79,21 +79,6 @@ button:hover {
   background: var(--primary-dark);
 }
 
-.team-button {
-  padding: 0.6rem 1rem;
-  margin: 0.25rem;
-  background: var(--primary);
-  border: none;
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  font-size: 0.95rem;
-}
-
-.team-button.selected {
-  background: var(--primary-dark);
-}
 
 .form-group {
   display: flex;
@@ -114,7 +99,154 @@ button:hover {
 .link:hover {
   text-decoration: underline;
 }
+.team-add-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
 
+#open-add-team-toast-btn {
+  padding: 0.7rem 1.2rem;
+  background: var(--primary);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+#open-add-team-toast-btn:hover {
+  background: var(--primary-dark);
+}
+
+.toast-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 9999;
+}
+
+.toast-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  min-width: 280px;
+  max-width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.toast-content h3 {
+  margin: 0;
+  text-align: center;
+}
+
+.toast-content input {
+  padding: 0.7rem;
+  font-size: 1rem;
+}
+
+.toast-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.toast-actions button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  transition: background 0.2s ease;
+}
+
+#save-team-btn:hover {
+  background: #28a745;
+}
+
+#cancel-team-btn:hover {
+  background: var(--primary-dark);
+}
+
+
+.hidden {
+  display: none !important;
+}
+.team-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.team-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.25rem 0;
+  width: 100%;
+}
+
+.team-button {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  background: var(--primary);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.team-button.selected {
+  background: var(--primary-dark);
+}
+
+.delete-team-button {
+  width: 42px;
+  height: 38px;
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #dc3545;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.delete-team-button:hover {
+  background: #b02a37;
+}
+.toast-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.hidden {
+  display: none;
+}
 @media (max-width: 480px) {
   body {
     padding: 1rem;

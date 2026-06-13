@@ -16,7 +16,15 @@ function loadTeams() {
     const container = document.getElementById("team-buttons");
     container.innerHTML = "";
 
+    if (!teams) {
+      container.innerHTML = "<p>Noch keine Teams vorhanden.</p>";
+      return;
+    }
+
     Object.entries(teams).forEach(([id, team]) => {
+      const row = document.createElement("div");
+      row.className = "team-row";
+
       const btn = document.createElement("button");
       btn.className = "team-button";
       btn.textContent = team.name;
@@ -28,15 +36,49 @@ function loadTeams() {
       btn.onclick = () => {
         selectedTeamId = id;
         localStorage.setItem("selectedTeamId", id);
-        document.querySelectorAll(".team-button").forEach(b => b.classList.remove("selected"));
+
+        document
+          .querySelectorAll(".team-button")
+          .forEach(b => b.classList.remove("selected"));
+
         btn.classList.add("selected");
       };
 
-      container.appendChild(btn);
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete-team-button";
+      deleteBtn.textContent = "🗑️";
+
+      deleteBtn.onclick = async (event) => {
+        event.stopPropagation();
+
+        const sicher = confirm(`Team "${team.name}" wirklich löschen?`);
+
+        if (!sicher) {
+          return;
+        }
+
+        try {
+          await db.ref(`teams/${id}`).remove();
+
+          if (selectedTeamId === id) {
+            selectedTeamId = null;
+            localStorage.removeItem("selectedTeamId");
+          }
+
+          loadTeams();
+        } catch (error) {
+          console.error(error);
+          alert("Fehler beim Löschen des Teams!");
+        }
+      };
+
+      row.appendChild(btn);
+      row.appendChild(deleteBtn);
+
+      container.appendChild(row);
     });
   });
 }
-
 document.getElementById("login-btn").addEventListener("click", () => {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value;
@@ -72,7 +114,6 @@ document.getElementById("storno-btn").addEventListener("click", async () => {
     alert("Bitte Team wählen und eine gültige Anzahl eingeben!");
     return;
   }
-
   // 1. aktuellen Stand holen
   const current = await showCurrentCount(selectedTeamId);
   if (current === null) {
@@ -103,7 +144,78 @@ document.getElementById("storno-btn").addEventListener("click", async () => {
 
   document.getElementById("spritzer-count").value = "";
 });
+document.getElementById("setValue-btn").addEventListener("click", async () => {
+  const input = document.getElementById("spritzer-count");
+  const inputCount = parseInt(input.value, 10);
 
+  if (!selectedTeamId) {
+    alert("Bitte Team wählen!");
+    return;
+  }
+
+  if (isNaN(inputCount)) {
+    alert("Bitte gültige Zahl eingeben!");
+    return;
+  }
+
+  try {
+    const ref = db.ref(`teams/${selectedTeamId}/count`);
+
+    await ref.set(inputCount);
+    alert(`Anzahl auf ${inputCount} gesetzt!`);
+
+    input.value = "";
+  } catch (error) {
+    console.error(error);
+    alert("Fehler beim Speichern!");
+  }
+});
+
+const teamToast = document.getElementById("team-toast");
+const openAddTeamToastBtn = document.getElementById("open-add-team-toast-btn");
+const saveTeamBtn = document.getElementById("save-team-btn");
+const cancelTeamBtn = document.getElementById("cancel-team-btn");
+const newTeamNameInput = document.getElementById("new-team-name");
+
+// Toast öffnen
+openAddTeamToastBtn.addEventListener("click", () => {
+  newTeamNameInput.value = "";
+  teamToast.classList.remove("hidden");
+  newTeamNameInput.focus();
+});
+
+// Toast schließen
+cancelTeamBtn.addEventListener("click", () => {
+  teamToast.classList.add("hidden");
+});
+
+// Team speichern
+saveTeamBtn.addEventListener("click", async () => {
+  const teamName = newTeamNameInput.value.trim();
+
+  if (!teamName) {
+    alert("Bitte Teamnamen eingeben!");
+    return;
+  }
+
+  try {
+    const newTeamRef = db.ref("teams").push();
+
+    await newTeamRef.set({
+      name: teamName,
+      count: 0
+    });
+
+    newTeamNameInput.value = "";
+    teamToast.classList.add("hidden");
+
+    loadTeams();
+
+  } catch (error) {
+    console.error(error);
+    alert("Fehler beim Hinzufügen des Teams!");
+  }
+});
 // Hilfsfunktion: aktuellen Stand anzeigen
 function showCurrentCount(teamId) {
   if (!teamId) {
